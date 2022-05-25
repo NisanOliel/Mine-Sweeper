@@ -2,9 +2,10 @@
 const MINE = '💣'
 const FLAG = '🚩'
 var gBoard
+var clickCount = 0
 
 var gLevel = {
-    SIZE: 6,
+    SIZE: 4,
     MINES: 2
 }
 
@@ -18,7 +19,10 @@ var gGame = {
 
 function init() {
     gBoard = buildBoard()
+    console.log('gBoard:', gBoard)
     renderBoard()
+    resetTimer()
+    clickCount = 0
 }
 
 
@@ -49,7 +53,7 @@ function renderBoard() {
     for (var i = 0; i < gBoard.length; i++) {
         strHtml += '<tr>';
         for (var j = 0; j < gBoard[i].length; j++) {
-            var cell = gBoard[i][j].isMine ? MINE : gBoard[i][j].minesAroundCount
+            // var cell = gBoard[i][j].isMine ? MINE : gBoard[i][j].minesAroundCount
             var className = (gBoard[i][j].isShown) ? 'show' : 'unShow'
             var tdId = 'cell-' + i + '-' + j;
             strHtml += `<td id="${tdId}"  class="${className}" onclick="cellClicked(this,${i}, ${j})"></td>`
@@ -86,27 +90,30 @@ function setMinesNegsCount(board) {
 
 function cellClicked(elCell, i, j) {
     if (gGame.isOn === false) return
+    if (clickCount === 0) startTimer()
     var cellClicked = gBoard[i][j];
     console.log('cellClicked:', cellClicked)
 
     if (cellClicked.isShown) return
     if (cellClicked.isMine) {
-        elCell.innerHTML = MINE
+        elCell.innerText = MINE
         console.log('game over')
+        clearInterval(interval)
     }
-    cellClicked.isShown = true
-    if (!cellClicked.isMine) elCell.innerHTML = cellClicked.minesAroundCount
 
+    cellClicked.isShown = true
     elCell.classList.add('show')
     elCell.classList.remove('unShow')
-
-
-    if (cellClicked.isMine === false && cellClicked.minesAroundCount === 0) {
-        expandShown(elCell, i, j)
-
+    if (!cellClicked.isMine) {
+        if (cellClicked.minesAroundCount === 0) {
+            expandShown(elCell, i, j)
+            elCell.innerText = ''
+        } else {
+            elCell.innerText = cellClicked.minesAroundCount
+        }
     }
-
-
+    gGame.shownCount++
+    clickCount++
 }
 
 function cellMarked(elCell) {
@@ -129,5 +136,4 @@ function expandShown(elCell, rowIdx, colIdx) {
         }
     }
     renderBoard()
-
 }

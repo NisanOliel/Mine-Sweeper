@@ -9,6 +9,48 @@
 </head>
 <body onload="init()">
     <h1>Mine Sweeper</h1>
+    <div class="box">
+        <h3>Pick Difficulty</h3>
+        <form>
+          <input
+           onclick="changeLevel(this)"
+           type="radio"
+           value ="4"
+           mines ="2"
+           name="level"
+           checked = "checked"
+          >
+          <label>4(Easy)</label>
+    
+          <input
+           onclick="changeLevel(this)"
+           type="radio"
+           value ="8"
+           mines ="12"
+           name="level"
+          >
+          <label>8(Medium)</label>
+    
+          <input
+           onclick="changeLevel(this)"
+           type="radio"
+           value ="12"
+           mines ="30"
+           name="level"
+          >
+          <label>12(Hard)</label>
+          <br>
+          
+          <button onclick="init()">😆</button>
+        </form>
+        <div class="box">
+          Timer: <br>
+          <div class="timer">
+            00:00:000
+          </div>
+          
+        </div>
+      </div>
     <div class="game">
         <table class="game-board">
             <tbody>

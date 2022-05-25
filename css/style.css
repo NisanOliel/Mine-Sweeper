@@ -1,5 +1,6 @@
 body {
-    background-color: sandybrown
+    background-color: #00ADB5;
+    text-align: center;
 }
 
 /* 
@@ -30,10 +31,30 @@ td {
 
 .unShow {
     background-color: rgb(227, 252, 0);
+    cursor: pointer;
 
 }
 
 .show {
     background-color: rgb(183, 0, 255);
+
+}
+
+
+button {
+    background-color: #00ADB5;
+    font-size: 40px;
+    cursor: pointer;
+    margin: 5px;
+    padding: 5px;
+    border: none;
+}
+
+
+.box {
+    margin: 5px;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
 
 }
