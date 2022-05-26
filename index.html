@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon">
     <title>Mine Sweeper</title>
 </head>
 <body onload="init()">
@@ -16,7 +17,6 @@
            onclick="changeLevel(this)"
            type="radio"
            value ="4"
-           mines ="2"
            name="level"
            checked = "checked"
           >
@@ -26,7 +26,6 @@
            onclick="changeLevel(this)"
            type="radio"
            value ="8"
-           mines ="12"
            name="level"
           >
           <label>8(Medium)</label>
@@ -35,19 +34,20 @@
            onclick="changeLevel(this)"
            type="radio"
            value ="12"
-           mines ="30"
            name="level"
           >
           <label>12(Hard)</label>
           <br>
           
-          <button onclick="init()">😆</button>
+          <button class="smiley" onclick="init()">🙂</button>
         </form>
         <div class="box">
           Timer: <br>
           <div class="timer">
             00:00:000
           </div>
+          <br>
+          Lives: <span></span>
           
         </div>
       </div>
@@ -59,6 +59,7 @@
         </table>
         
     </div>
+    <div class="box-alert" >You LOST!</div>
   
     <script src="js/main.js"></script>
     <script src="js/utils.js"></script>
