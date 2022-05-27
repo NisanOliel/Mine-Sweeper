@@ -31,8 +31,8 @@ function changeLevel(elValue) {
                 gGame.lives = 3
 
             break;
+
     }
-    console.log('gLevel.MINES:', gLevel.MINES)
     init()
 
 }

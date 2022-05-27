@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lobster&family=Teko:wght@500&display=swap" rel="stylesheet">
     <title>Mine Sweeper</title>
 </head>
 <body onload="init()">
@@ -20,7 +24,7 @@
            name="level"
            checked = "checked"
           >
-          <label>4(Easy)</label>
+          <label>Easy</label>
     
           <input
            onclick="changeLevel(this)"
@@ -28,7 +32,7 @@
            value ="8"
            name="level"
           >
-          <label>8(Medium)</label>
+          <label>Medium</label>
     
           <input
            onclick="changeLevel(this)"
@@ -36,16 +40,17 @@
            value ="12"
            name="level"
           >
-          <label>12(Hard)</label>
+          <label>Hard</label>
           <br>
           
           <button class="smiley" onclick="init()">🙂</button>
         </form>
-        <div class="box">
+        <div>
           Timer: <br>
           <div class="timer">
             00:00:000
           </div>
+          <button onclick="safeClick()" class="safe-btn">Safe click :3</button>
           <br>
           Lives: <span></span>
           
@@ -54,18 +59,18 @@
     <div class="game">
         <table class="game-board">
             <tbody>
-         
+              <div class="box-alert" >You LOST!</div>
+
             </tbody>
         </table>
         
     </div>
-    <div class="box-alert" >You LOST!</div>
   
     <script src="js/main.js"></script>
     <script src="js/utils.js"></script>
 </body>
 <footer>
     <br>
-    Nisan oliel
+   <p>Nisan oliel - Coding academy sprint 1</p> 
 </footer>
 </html>

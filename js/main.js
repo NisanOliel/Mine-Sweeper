@@ -15,7 +15,8 @@ var gGame = {
     shownCount: 0,
     markedCount: 0,
     secsPassed: 0,
-    lives: 2
+    lives: 2,
+    safeClick: 3,
 }
 
 function init() {
@@ -25,6 +26,9 @@ function init() {
     livesRender()
     clickCount = 0
     gGame.shownCount = 0
+    gGame.safeClick = 3
+    var elBtn = document.querySelector('.safe-btn')
+    elBtn.innerText = `Safe click : ${gGame.safeClick}`
 
 }
 
@@ -45,8 +49,8 @@ function buildBoard() {
     }
     // board[1][1].isMine = true
     // board[2][1].isMine = true
-    randomMines(gLevel.MINES, board)
-    setMinesNegsCount(board)
+    // randomMines(gLevel.MINES, board)
+    // setMinesNegsCount(board)
     return board
 }
 
@@ -95,11 +99,11 @@ function cellClicked(elCell, i, j) {
     var cellClicked = gBoard[i][j];
     console.log('gBoard[i][j]:', gBoard[i][j])
 
-    // console.log('cellClicked:', cellClicked)
-    // if (clickCount === 1) {
-    //     randomMines(gLevel.MINES, gBoard)
-    //     setMinesNegsCount(gBoard)
-    // }
+    // First click
+    if (clickCount === 1) {
+        randomMines(gLevel.MINES, gBoard)
+        setMinesNegsCount(gBoard)
+    }
 
     if (cellClicked.isShown) return
     if (cellClicked.isMine) {
@@ -139,7 +143,7 @@ function cellClicked(elCell, i, j) {
         smiley.innerText = '🤑'
         var alert = document.querySelector('.box-alert')
         alert.innerHTML = 'You WON!'
-        alert.style.backgroundColor = 'green'
+        alert.style.backgroundColor = 'rgb(105, 252, 69)'
         alert.style.display = 'block'
 
         gGame.isOn = false
@@ -210,10 +214,21 @@ function expandShown(board, idxI, idxJ) {
     }
 }
 
-
 function livesRender() {
     var elLives = document.querySelector('.box span')
-    elLives.innerHTML = gGame.lives
+    if (gGame.lives == 3) {
+        elLives.innerHTML = '❤️❤️❤️'
+    }
+    if (gGame.lives == 2) {
+        elLives.innerHTML = '❤️❤️'
+    }
+    if (gGame.lives == 1) {
+        elLives.innerHTML = '❤️'
+    }
+    if (gGame.lives == 0) {
+        elLives.innerHTML = '0️⃣'
+    }
+
 }
 
 function showMines() {
@@ -231,3 +246,31 @@ function showMines() {
 
 }
 
+function safeClick() {
+    if (!gGame.isOn) return
+    if (gGame.safeClick === 0) return
+
+    gGame.safeClick--
+    var safeCells = []
+    for (var i = 0; i < gBoard.length; i++) {
+        for (var j = 0; j < gBoard[0].length; j++) {
+            var cell = gBoard[i][j]
+            if (!cell.isShown && !cell.isMine) {
+                var cellPos = { i: i, j: j }
+                safeCells.push(cellPos)
+            }
+        }
+    }
+    if (safeCells.length === 0) return
+    var randomNum = getRandomInt(0, safeCells.length)
+    var raddomCell = safeCells[randomNum]
+    var elCell = document.querySelector(`.cell-${raddomCell.i}-${raddomCell.j}`);
+    elCell.classList.add('safe')
+    var elBtn = document.querySelector('.safe-btn')
+    elBtn.innerText = `Safe click : ${gGame.safeClick}`
+
+    setTimeout(function () {
+        elCell.classList.remove('safe')
+    }, 1000)
+
+}
